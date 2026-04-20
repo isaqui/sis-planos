@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  sis_antiguo_php_56:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sis_${HOSTDIRFILE}
+    restart: unless-stopped
+
+    volumes:
+      - /volume1/home/${HOSTUSUCPANEL}/public_html/${HOSTDIRFILE}:/var/www/html:rw
+      
+    deploy:
+      resources:
+        limits:
+          cpus: "0.8"
+          memory: 3072M
+    ports:
+      - "${PORT}:80"
+
+    environment:
+      - TZ=America/La_Paz
+      - HOSTUSUCPANEL=${HOSTUSUCPANEL}
+    networks:
+      - app_network_sistemas
+    
+    command: apache2-foreground
+    env_file:
+      - .env
+
+volumes:
+  php_5_6_app_volume:
+    driver: local
+
+networks:
+  app_network_sistemas:
+    driver: bridge
