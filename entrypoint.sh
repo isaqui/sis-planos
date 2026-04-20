@@ -3,11 +3,8 @@ set -e
 
 echo "Entrypoint verificar variable HOSTUSUCPANEL='$HOSTUSUCPANEL'"
 
-chown -R www-data:www-data /var/www/html/imagenes \
-                            /var/www/html/docs \
-                            /var/www/html/importacion \
-							/var/www/html/cron_jobs \
-                            /var/www/html/doc_imp || true
+chown -R www-data:www-data /var/www/html/uploads \
+                            /var/www/html/cache || true
 
 # Ejecuta el comando principal (p.ej. apache2)
 exec "$@"
